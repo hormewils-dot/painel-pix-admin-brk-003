@@ -63,8 +63,9 @@
  </div>
  <label for=city-search-cdc>INFORME A CIDADE*</label>
  <div class="field select-field">
- <input class=city-trigger id=city-search-cdc placeholder="Digite o nome da cidade" autocomplete=off value>
+ <input class=city-trigger id=city-search-cdc placeholder="Digite o nome da cidade" autocomplete=off aria-controls=city-options-cdc value>
  <button type=button class=city-clear aria-label="Limpar cidade">Limpar</button>
+ <div class="city-options sf-hidden" id=city-options-cdc role=listbox></div>
  </div>
  </div>
  <div style="display:flex;justify-content:center;margin:14px 0 4px">
@@ -125,6 +126,49 @@
         if(inp){ inp.value=''; inp.focus(); }
       });
     });
+  }
+  if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', init); } else { init(); }
+})();
+</script>
+<style>
+.city-options{max-height:230px;overflow-y:auto!important}
+.city-option{padding:11px 16px;cursor:pointer;font-size:14px;color:#212630;border-bottom:1px solid #e2e3ee}
+.city-option:last-child{border-bottom:0}
+.city-option:hover,.city-option.active{background:#dfe0ea}
+.city-empty{padding:11px 16px;font-size:13px;color:#8a8f99}
+</style>
+<script>
+(function(){
+  var CITIES = ["Maceió - AL","Marechal Deodoro - AL","Atalaia - AL","Barra de São Miguel - AL","Barra de Santo Antônio - AL","Paripueira - AL","Rio Largo - AL","Coqueiro Seco - AL","Santa Luzia do Norte - AL","Pilar - AL","Satuba - AL","Murici - AL","Messias - AL","Palmas - TO","Aguiarnópolis - TO","Aliança do Tocantins - TO","Almas - TO","Alvorada - TO","Araguaçu - TO","Araguaína - TO","Araguanã - TO","Arapoema - TO","Arraias - TO","Augustinópolis - TO","Babaçulândia - TO","Barrolândia - TO","Buriti do Tocantins - TO","Campos Lindos - TO","Carrasco Bonito - TO","Colinas do Tocantins - TO","Colméia - TO","Combinado - TO","Cristalândia - TO","Dianópolis - TO","Divinópolis do Tocantins - TO","Dois Irmãos do Tocantins - TO","Esperantina - TO","Fátima - TO","Figueirópolis - TO","Filadélfia - TO","Formoso do Araguaia - TO","Goiatins - TO","Guaraí - TO","Gurupi - TO","Itaguatins - TO","Lagoa da Confusão - TO","Lavandeira - TO","Lizarda - TO","Luzinópolis - TO","Miracema do Tocantins - TO","Nazaré - TO","Palmeiras do Tocantins - TO","Palmeirópolis - TO","Paranã - TO","Paraíso do Tocantins - TO","Peixe - TO","Porto Nacional - TO","Tocantinópolis - TO","Wanderlândia - TO","Xambioá - TO","Aparecida de Goiânia - GO","Jataí - GO","Rio Verde - GO","Trindade - GO","Limeira - SP","Sumaré - SP","Porto Ferreira - SP","Rio Claro - SP","Santa Gertrudes - SP","Mairinque - SP","Capivari - SP","Araçatuba - SP","Mauá - SP","Paço do Lumiar - MA","São José de Ribamar - MA","Cachoeiro de Itapemirim - ES","Blumenau - SC","Caçador - SC","Uruguaiana - RS","Rio de Janeiro (Zona Oeste) - RJ","Macaé - RJ","São Geraldo do Araguaia - PA","Curionópolis - PA","Eldorado do Carajás - PA","Xinguara - PA","Recife - PE","Olinda - PE","Jaboatão dos Guararapes - PE","Paulista - PE","Cabo de Santo Agostinho - PE","Camaragibe - PE","São Lourenço da Mata - PE","Igarassu - PE","Ipojuca - PE","Itapissuma - PE","Itamaracá - PE","Moreno - PE","Abreu e Lima - PE","Araçoiaba - PE","Goiana - PE","Afogados da Ingazeira - PE","Agrestina - PE","Água Preta - PE","Águas Belas - PE","Alagoinha - PE","Aliança - PE","Altinho - PE","Amaraji - PE","Angelim - PE","Arcoverde - PE","Barra de Guabiraba - PE","Barreiros - PE","Belém de Maria - PE","Belém de São Francisco - PE","Belo Jardim - PE","Betânia - PE","Bezerros - PE","Bom Conselho - PE","Bom Jardim - PE","Bonito - PE","Brejão - PE","Brejinho - PE","Brejo da Madre de Deus - PE","Buenos Aires - PE","Buíque - PE","Cachoeirinha - PE","Caetés - PE","Calçado - PE","Camocim de São Félix - PE","Camutanga - PE","Canhotinho - PE","Capoeiras - PE","Carnaíba - PE","Carnaubeira da Penha - PE","Carpina - PE","Caruaru - PE","Casinhas - PE","Catende - PE","Chã de Alegria - PE","Chã Grande - PE","Condado - PE","Correntes - PE","Cortês - PE","Cumaru - PE","Cupira - PE","Custódia - PE","Escada - PE","Feira Nova - PE","Ferreiros - PE","Flores - PE","Floresta - PE","Frei Miguelinho - PE","Gameleira - PE","Garanhuns - PE","Glória do Goitá - PE","Gravatá - PE","Iati - PE","Ibimirim - PE","Ibirajuba - PE","Inajá - PE","Ingazeira - PE","Itacuruba - PE","Itaíba - PE","Itambé - PE","Itapetim - PE","Itaquitinga - PE","Jaqueira - PE","Jataúba - PE","Jatobá - PE","João Alfredo - PE","Joaquim Nabuco - PE","Jucati - PE","Jurema - PE","Lagoa de Itaenga - PE","Lagoa do Carro - PE","Lagoa do Ouro - PE","Lagoa dos Gatos - PE","Lajedo - PE","Limoeiro - PE","Macaparana - PE","Machados - PE","Manari - PE","Maraial - PE","Mirandiba - PE","Nazaré da Mata - PE","Orobó - PE","Palmares - PE","Palmeirina - PE","Panelas - PE","Paranatama - PE","Passira - PE","Paudalho - PE","Pedra - PE","Pesqueira - PE","Petrolândia - PE","Poção - PE","Pombos - PE","Primavera - PE","Quipapá - PE","Quixaba - PE","Riacho das Almas - PE","Ribeirão - PE","Rio Formoso - PE","Sairé - PE","Salgadinho - PE","Sanharó - PE","Santa Cruz da Baixa Verde - PE","Santa Cruz do Capibaribe - PE","Santa Maria do Cambucá - PE","Santa Terezinha - PE","São Benedito do Sul - PE","São Bento do Una - PE","São Caetano - PE","São João - PE","São Joaquim do Monte - PE","São José da Coroa Grande - PE","São José do Egito - PE","São Vicente Ferrer - PE","Serra Talhada - PE","Sertânia - PE","Sirinhaém - PE","Solidão - PE","Surubim - PE","Tabira - PE","Tacaratu - PE","Tamandaré - PE","Taquaritinga do Norte - PE","Timbaúba - PE","Toritama - PE","Tracunhaém - PE","Triunfo - PE","Tupanatinga - PE","Tuparetama - PE","Venturosa - PE","Vertente do Lério - PE","Vertentes - PE","Vicência - PE","Vitória de Santo Antão - PE","Xexéu - PE","Salvador - BA","Lauro de Freitas - BA"];
+  function norm(s){ return (s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').trim(); }
+  function cityName(full){ var idx = full.lastIndexOf(' - '); return idx>=0 ? full.slice(0,idx) : full; }
+  function attach(input, box){
+    if(!input || !box) return;
+    function close(){ box.classList.add('sf-hidden'); box.innerHTML=''; }
+    function render(){
+      var q = norm(input.value);
+      if(q.length < 3){ close(); return; }
+      var matches = CITIES.filter(function(c){ return norm(cityName(c)).indexOf(q) === 0; }).slice(0,60);
+      if(!matches.length){ box.innerHTML = '<div class="city-empty">Nenhuma cidade encontrada</div>'; box.classList.remove('sf-hidden'); return; }
+      box.innerHTML = matches.map(function(c){ return '<div class="city-option" role="option">'+c+'</div>'; }).join('');
+      box.classList.remove('sf-hidden');
+    }
+    input.addEventListener('input', render);
+    input.addEventListener('focus', render);
+    box.addEventListener('mousedown', function(e){
+      var opt = e.target.closest('.city-option');
+      if(!opt) return;
+      e.preventDefault();
+      input.value = opt.textContent;
+      close();
+    });
+    document.addEventListener('click', function(e){
+      if(e.target !== input && !box.contains(e.target)) close();
+    });
+  }
+  function init(){
+    attach(document.getElementById('city-search'), document.getElementById('city-options'));
+    attach(document.getElementById('city-search-cdc'), document.getElementById('city-options-cdc'));
   }
   if(document.readyState === 'loading'){ document.addEventListener('DOMContentLoaded', init); } else { init(); }
 })();
